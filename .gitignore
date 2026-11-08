@@ -1,0 +1,20 @@
+# Data and secrets
+data/
+.env
+
+# Python environments, caches and build output
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# IDE and OS
+.idea/
+.DS_Store
