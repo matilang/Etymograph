@@ -73,7 +73,8 @@ hand-written per-language rules are both forbidden.
   - `zlw-opl`: removes only the ring above. `zlw-mpl`: removes acute, with exceptions ć ń ó ś ź.
   - `de`, `pl`: **no `strip_diacritics` at all**, so `key = form`: `cegła` stays `cegła`.
   - `gmh`: removes circumflex and macron, and maps `ë → e`, `ʒ → z`; `goh` removes circumflex,
-    macron and diaeresis. (See open question 1.)
+    macron and diaeresis. These rules are applied exactly as written, letter mappings included
+    (decision below).
 - The older field name in Wiktionary was `entry_name`; the pinned copy uses `strip_diacritics`.
   `TODO(verify)`: confirm the field name and the shared tables in the module tar pinned to the kaikki
   dump (ADR 0006).
@@ -144,8 +145,11 @@ hand-written per-language rules are both forbidden.
 - Link resolution depends on which language files are loaded. Adding a language can turn stubs into
   entries; ADR 0006 re-resolves all links on each build, which is cheap.
 - Ambiguous page words are real nodes. Queries that need precision filter on `status = 'entry'`.
-- The quality of keys depends entirely on Wiktionary's rules. Where they change letters
-  (`gmh` `ë → e`), we follow them for the key and keep the letter in `form`.
+- **Keys follow Wiktionary's `strip_diacritics` rules exactly, including letter mappings** such as
+  `gmh` `ë → e` and `ʒ → z`. A key only serves to find the page, so it must be spelled the way
+  Wiktionary spells the page title. `form` always keeps every letter and mark: `gmh:hërze` has key
+  `herze` and form `hërze`. The project rule "letters are never changed" applies to the stored word
+  (`form`); the modern MVP languages' rules do not change letters anyway (`de` and `pl` have none).
 
 ## Evidence
 
@@ -159,10 +163,9 @@ hand-written per-language rules are both forbidden.
 
 ## Open questions
 
-1. `gmh` and `goh` rules change letters (`ë → e`, `ʒ → z`). Following Wiktionary is the project rule
-   for keys, so `gmh:hërze` gets key `herze`; the form keeps `ë`. Please confirm this reading of the
-   policy ("letters are never changed" applies to forms and to the modern languages, whose rules do
-   not change letters).
+1. **Resolved (review of phase 0):** keys follow Wiktionary's `strip_diacritics` rules exactly,
+   letter mappings included (`gmh` `ë → e`), because they only serve to find the page; `form` always
+   keeps every letter and mark. See Consequences.
 2. `TODO(verify)`: exact algorithm order in `Module:languages`, script detection, etymology-only
    fallback, the Reconstruction-page indicator in kaikki.
 3. `TODO(verify)`: share of `<id:…>` targets that match an `ety_ids` value (measured in phase 1).
