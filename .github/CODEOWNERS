@@ -1,0 +1,18 @@
+# Code owners for EtymoGraph.
+# GitHub requests a review from the owners of every path a pull request touches.
+# The last matching pattern wins.
+#
+# Placeholders: Role 2 and Role 3 owners are not decided yet. When they are, replace
+# <ROLE2_GITHUB_USERNAME> / <ROLE3_GITHUB_USERNAME> with the GitHub username (for example
+# @someone) and remove the leading "# " so the rule becomes active.
+
+# Role 1: Data Engineer (Eldar)
+/etymo/                  @vikaloeldar
+/docs/data_contract.md   @vikaloeldar
+
+# Role 2: Graph Modeler (TBD)
+# /shapes/               @<ROLE2_GITHUB_USERNAME>
+
+# Role 3: Query & Analysis Lead (TBD)
+# /queries/              @<ROLE3_GITHUB_USERNAME>
+# /demo/                 @<ROLE3_GITHUB_USERNAME>
