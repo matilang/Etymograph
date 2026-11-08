@@ -1,0 +1,58 @@
+word_id,lang,key,etym_no,form,is_reconstruction,status,stub_reason,pos,ety_ids,gloss,source_file,ipa,ipa_source,run_id
+w_022e12fd88982e1a,pl,magiel,0,magiel,false,entry,,"[""noun""]",,"mangle, wringer",pl,,,r_8364c8ed0444
+w_046785d85a143f08,fr,adresse,1,adresse,false,entry,,"[""noun""]","[""address""]",direction,fr,,,r_8364c8ed0444
+w_07cdc91011cf9eec,gmh,herze,0,hërze,false,entry,,"[""noun""]",,heart,gmh,,,r_8364c8ed0444
+w_08696d2a36ad1166,de,Mangel,1,Mangel,false,entry,,"[""noun""]",,"lack, shortage (the condition of having an insufficient amount of a resource, or none at all)",de,,,r_8364c8ed0444
+w_0dc4fcfa5925eca7,gmh,küche,0,küche,false,stub,no_entry,,,,,,,r_8364c8ed0444
+w_0fd6f4cdd701484f,zlw-opl,kuchnia,0,kuchnia,false,entry,,"[""noun""]","[""kitchen""]",kitchen (room in which meals are cooked),zlw-opl,,,r_8364c8ed0444
+w_11860f581be1d8c9,ine-pro,*bʰeg-,0,*bʰeg-,true,entry,,"[""root""]","[""bend"",""break""]",to break,ine-pro,,,r_8364c8ed0444
+w_12b10ce784e82532,gem-pro,*hertô,0,*hertô,true,entry,,"[""noun""]",,heart,gem-pro,,,r_8364c8ed0444
+w_13736189e7d1f2de,fr,devise,0,devise,false,entry,,"[""noun""]",,motto,fr,,,r_8364c8ed0444
+w_1498a8b606c5857c,gmw-pro,*banki,0,*banki,true,entry,,"[""noun""]","[""bench""]",bench,gmw-pro,,,r_8364c8ed0444
+w_1d8ef33de61410d9,de,Kreide,0,Kreide,false,entry,,"[""name"",""noun""]",,chalk (material used for drawing and on a blackboard),de,,,r_8364c8ed0444
+w_1f916a673fc778bd,grc,τάγηνον,0,τάγηνον,false,stub,no_file,,,,,,,r_8364c8ed0444
+w_28d1fc8fa68a82a1,goh,herza,0,hërza,false,entry,,"[""noun""]",,heart,goh,,,r_8364c8ed0444
+w_2a154695ed7dfd3c,de,Mangel,0,Mangel,false,ambiguous,,,,,,,,r_8364c8ed0444
+w_3079ebcad4e9f75a,de,Adresse,0,Adresse,false,entry,,"[""noun""]","[""address""]",address,de,,,r_8364c8ed0444
+w_33a8871e3c77758e,de,Küche,0,Küche,false,entry,,"[""noun""]",,kitchen (room),de,,,r_8364c8ed0444
+w_4072509a236d6eda,de,Ziegel,0,Ziegel,false,entry,,"[""noun""]",,brick,de,,,r_8364c8ed0444
+w_44bf126c84c8094f,de,Gewinde,0,Gewinde,false,entry,,"[""noun""]",,"thread (helical ridge or groove, as on a screw)",de,,,r_8364c8ed0444
+w_4895899959ea6fba,de,Bank,2,Bank,false,entry,,"[""noun""]","[""institution""]",bank (financial institution),de,,,r_8364c8ed0444
+w_4b02077ab03cf3d8,la,creta,1,crēta,false,entry,,"[""noun""]",,chalk,la,,,r_8364c8ed0444
+w_4c1a5177d8715ddf,de,Mangel,2,Mangel,false,entry,,"[""noun""]",,mangle,de,,,r_8364c8ed0444
+w_4c5f4574310e11c4,ine-pro,*ḱérd,0,*ḱérd,true,stub,no_entry,,,,,,,r_8364c8ed0444
+w_4c691f2d3cd34463,gmw-pro,*krīdā,0,*krīdā,true,entry,,"[""noun""]",,chalk,gmw-pro,,,r_8364c8ed0444
+w_4cbbe5873638f5c1,goh,ziegal,0,ziegal,false,stub,no_entry,,,,,,,r_8364c8ed0444
+w_4ee3f735a86cf0e7,pl,kreda,0,kreda,false,entry,,"[""noun""]",,chalk (sedimentary rock),pl,,,r_8364c8ed0444
+w_50fa6feeae58e24e,fr,adresse,0,adresse,false,ambiguous,,,,,,,,r_8364c8ed0444
+w_5856c959dce75599,gmw-pro,*tigulā,0,*tigulā,true,entry,,"[""noun""]","[""tile""]",tile,gmw-pro,,,r_8364c8ed0444
+w_5a89225b214fb911,zlw-opl,serce,0,serce,false,entry,,"[""noun""]","[""heart""]","heart (muscular organ that pumps blood through the body, traditionally thought to be the seat of emotion)",zlw-opl,,,r_8364c8ed0444
+w_5c0ca1fc9e7ec0f3,pl,cegła,0,cegła,false,entry,,"[""noun""]","[""brick""]","brick (hardened rectangular block of mud, clay, etc., used for building)",pl,,,r_8364c8ed0444
+w_5f0eaf4f853083c1,gem-pro,*bankiz,0,*bankiz,true,entry,,"[""noun""]","[""raised surface""]",raised surface; bulge; hillock; slope,gem-pro,,,r_8364c8ed0444
+w_610ec68a852d8803,gmw-pro,*kukinā,0,*kukinā,true,entry,,"[""noun""]","[""kitchen""]",kitchen,gmw-pro,,,r_8364c8ed0444
+w_62b1ac92103cc805,fr,banque,0,banque,false,entry,,"[""noun""]",,bank,fr,,,r_8364c8ed0444
+w_6bd620b32f154879,gmw-pro,*hertā,0,*hertā,true,entry,,"[""noun""]",,heart,gmw-pro,,,r_8364c8ed0444
+w_6e24ff792be8def2,pl,kuchnia,0,kuchnia,false,entry,,"[""intj"",""noun""]","[""kitchen""]",kitchen (room or area for preparing food),pl,,,r_8364c8ed0444
+w_7c61e3be992e8c3b,de,Bank,1,Bank,false,entry,,"[""noun""]","[""bench""]",bench (which people sit on); pew,de,,,r_8364c8ed0444
+w_7cc19232312a8786,la,cocina,0,cocīna,false,entry,,"[""noun""]","[""kitchen""]",kitchen,la,,,r_8364c8ed0444
+w_7cc76174e4d3a920,la,tegula,0,tēgula,false,entry,,"[""noun""]","[""tile""]","a large, flat and heavy roof tile used in an overlapping formation with the curved and smaller imbrex",la,,,r_8364c8ed0444
+w_822ba7d2def2d788,goh,chuhhina,0,chuhhina,false,entry,,"[""noun""]","[""kitchen""]",kitchen,goh,,,r_8364c8ed0444
+w_8dae46a0b7e35ca7,gmh,kride,0,krīde,false,stub,no_entry,,,,,,,r_8364c8ed0444
+w_8ecb355ba9e4e265,gmh,ziegel,0,ziegel,false,stub,no_entry,,,,,,,r_8364c8ed0444
+w_a16b0248d05fbc83,goh,banc,0,banc,false,stub,no_entry,,,,,,,r_8364c8ed0444
+w_a7f43e3f376a5e9d,it,banco,0,banco,false,stub,no_file,,,,,,,r_8364c8ed0444
+w_a93f12e74213d449,de,Herz,0,Herz,false,entry,,"[""noun""]",,heart,de,,,r_8364c8ed0444
+w_aff141ff41b40e4b,frm,banque,0,banque,false,stub,no_file,,,,,,,r_8364c8ed0444
+w_bd3b42104b79d82a,gem-pro,*tigulǭ,0,*tigulǭ,true,entry,,"[""noun""]","[""tile""]",tile,gem-pro,,,r_8364c8ed0444
+w_c4f29b7b1f0b5f15,de,Devise,0,Devise,false,entry,,"[""noun""]",,motto,de,,,r_8364c8ed0444
+w_c9b07358c756e367,ine-pro,*(s)teg-,0,*(s)teg-,true,entry,,"[""root""]","[""cover"",""pole""]",to cover,ine-pro,,,r_8364c8ed0444
+w_cbb522bf903d4b4e,goh,krida,0,krīda,false,stub,no_entry,,,,,,,r_8364c8ed0444
+w_cc59e96cd1fc4c2b,it,banca,0,banca,false,stub,no_file,,,,,,,r_8364c8ed0444
+w_dd3ade4b81ec305d,pl,gwint,0,gwint,false,entry,,"[""noun""]",,screw thread,pl,,,r_8364c8ed0444
+w_deba3281575cd6a4,la,*creda,0,*crēda,true,stub,no_entry,,,,,,,r_8364c8ed0444
+w_e19e4af33605fad4,zlw-opl,cegła,0,cegła,false,entry,,"[""noun""]","[""brick""]","brick (building material obtained from dried or fired clay with an admixture of sand, formed into cuboid blocks)",zlw-opl,,,r_8364c8ed0444
+w_e6a1247f1c7a6d29,pl,biżuteria,0,biżuteria,false,entry,,"[""noun""]",,jewellery,pl,,,r_8364c8ed0444
+w_eb1aa852e8e64f74,pl,adres,0,adres,false,entry,,"[""noun""]","[""address""]","address (a description of the location of a property, usually with at least a street name and number, name of a town, and now also a postal code; such a description as superscribed for direction on an envelope or letter)",pl,,,r_8364c8ed0444
+w_f6e87ebe50798817,fr,bijouterie,0,bijouterie,false,entry,,"[""noun""]",,jeweller's; jewellery shop,fr,,,r_8364c8ed0444
+w_fa3ad8b7d394b81c,pl,serce,0,serce,false,entry,,"[""noun""]","[""heart""]",heart (muscular organ that pumps blood through the body),pl,,,r_8364c8ed0444
+w_faae0fbba97d4070,sla-pro,*sьrdьce,0,*sь̑rdьce,true,entry,,"[""noun""]","[""heart""]",diminutive of *sьrdь (“heart”),sla-pro,,,r_8364c8ed0444

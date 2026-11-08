@@ -1,0 +1,2 @@
+run_id,contract_version,pipeline_commit,pipeline_dirty,config_sha256,target_languages,ancestor_files,manifest_sha256,dump_date,wiktextract_version,n_languages,n_words,n_links
+r_8364c8ed0444,v1,34e83dfa127ff4feab06f747363a40eb1ceeeea9,true,97c4e0da573e9b51924e69f2f7c4031def539b5b67a94c87c6f3723073aace7b,"[""de"",""pl""]","[""fr"",""gem-pro"",""gmh"",""gmw-pro"",""goh"",""ine-bsl-pro"",""ine-pro"",""la"",""sla-pro"",""zlw-opl""]",206cf5f822b2e89f3a41fa97ded8415b13963055202e568f3d111baba74f4831,2026-10-01,19f9a30 6f96ddf,26,57,49

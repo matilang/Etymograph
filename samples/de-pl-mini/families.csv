@@ -1,0 +1,20 @@
+code,name,parent_code,proto_language_code,run_id
+gem,Germanic,ine,,r_8364c8ed0444
+gmw,West Germanic,gem,,r_8364c8ed0444
+gmw-hgm,High German,gmw,goh,r_8364c8ed0444
+grk,Hellenic,ine,,r_8364c8ed0444
+ine,Indo-European,,,r_8364c8ed0444
+ine-bsl,Balto-Slavic,ine,,r_8364c8ed0444
+itc,Italic,ine,,r_8364c8ed0444
+itc-laf,Latino-Faliscan,itc,,r_8364c8ed0444
+roa,Romance,itc,la,r_8364c8ed0444
+roa-gar,Gallo-Romance,roa-wes,,r_8364c8ed0444
+roa-grh,Gallo-Rhaetian,roa-gar,,r_8364c8ed0444
+roa-itd,Italo-Dalmatian,roa-iwr,,r_8364c8ed0444
+roa-itr,Italo-Romance,roa-itd,,r_8364c8ed0444
+roa-iwr,Italo-Western Romance,roa,,r_8364c8ed0444
+roa-oil,Oïl,roa-grh,fro,r_8364c8ed0444
+roa-wes,Western Romance,roa-iwr,,r_8364c8ed0444
+sla,Slavic,ine-bsl,,r_8364c8ed0444
+zlw,West Slavic,sla,,r_8364c8ed0444
+zlw-lch,Lechitic,zlw,,r_8364c8ed0444
