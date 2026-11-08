@@ -98,7 +98,9 @@ One entry per raw input, written by `fetch`:
 | Reason code | Rule |
 |---|---|
 | `ANCESTOR_CHAIN_HOP` | links from ancestor files keep only `hop = 0` (the entry's own first hop) |
-| `REVERSED_LANG` | drop a link whose etymon's language descends from the derived word's language |
+| `REVERSED_LANG` | **`inh` only:** drop a link whose etymon's language descends from the derived word's language |
+| `REVERSED_LANG_LOAN` | **warning, link kept:** the same direction check fails on a `bor` or `calque` link |
+| `REVERSED_LANG_DER` | **warning, link kept:** the same direction check fails on a `der` link |
 | `UNKNOWN_LANG`, `MULTI_LANG_CODE` | drop (ADR 0002) |
 | `NO_TERM`, `EMPTY_TERM` | drop: template names a language only, or the term is empty |
 | `SELF_LOOP` | drop (ADR 0003) |
@@ -107,10 +109,24 @@ One entry per raw input, written by `fetch`:
 | `MALFORMED_ARG` | an argument that cannot be repaired |
 | `RESERVED_MORPH` | compound and affix templates, reserved for `COMPOSED_OF` (ADR 0007) |
 
+**Why reversed direction only drops `inh`.** Words live in their full language (ADR 0002), so the
+check compares full languages and cannot see the period of a word. Medieval Latin borrowed from Old
+French; such a word is filed under `la`, and `fro` descends from Latin, so `la:X bor fro:Y` looks
+reversed although it is correct. Inheritance cannot go backwards in time, so a reversed `inh` is
+always an error (the probe's reversed edges were mostly chain hops such as `goh ← gmh`). Loans and
+calques can go "backwards" between a later stage of a language and a descendant, so they are kept
+with a warning. `der` is kept with a warning too, for the same reason: Wiktionary uses `der` as the
+catch-all for unspecified borrowing and learned formation (`la:X der fro:Y` has the same problem), and
+Role 2's weak-derivation rule already flags `der` links. Chain-hop artefacts, the main source of
+wrong reversed links, are removed by `ANCESTOR_CHAIN_HOP` and `CHAIN_SUPERSEDED` instead. The
+warning codes get their own counts so that Role 2 can turn either into a drop if the DQ report shows
+mostly errors.
+
 Repairs are counted too: `LIST_ARG_REPAIRED` (wiktextract's stringified list arguments), and
 `DOTTED_CODE_MAPPED`. Duplicates merged under ADR 0003 are counted as `MERGED_DUPLICATE`.
-Every drop is a row in the stage's `drops.parquet` (reason, source entry, raw template); the DQ
-report gives counts per reason, resolution rates and the top unresolved targets.
+Every drop and every warning is a row in the stage's `drops.parquet` (reason, `severity` = `drop` or
+`warning`, source entry, raw template); a warning row does not remove the link. The DQ report gives
+counts per reason, resolution rates and the top unresolved targets.
 
 ### `add-lang`
 

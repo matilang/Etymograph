@@ -208,10 +208,14 @@ Full rationale in [ADR 0005](adr/0005-rdf-export-layout.md).
 
 ## 9. Reason codes (data-quality report)
 
-Every dropped or repaired record is counted under one of these codes (ADR 0006, ADR 0007):
-`NON_LEMMA`, `UNKNOWN_LANG`, `MULTI_LANG_CODE`, `NO_TERM`, `EMPTY_TERM`, `MALFORMED_ARG`,
-`SELF_LOOP`, `REVERSED_LANG`, `ANCESTOR_CHAIN_HOP`, `NOT_REACHABLE`, `RESERVED_MORPH` (drops);
-`LIST_ARG_REPAIRED`, `DOTTED_CODE_MAPPED`, `MERGED_DUPLICATE` (repairs and merges).
+Every dropped, flagged or repaired record is counted under one of these codes (ADR 0006,
+ADR 0007):
+
+| Kind | Codes |
+|---|---|
+| drop (record removed) | `NON_LEMMA`, `UNKNOWN_LANG`, `MULTI_LANG_CODE`, `NO_TERM`, `EMPTY_TERM`, `MALFORMED_ARG`, `SELF_LOOP`, `REVERSED_LANG` (`inh` only), `ANCESTOR_CHAIN_HOP`, `NOT_REACHABLE`, `RESERVED_MORPH` |
+| warning (link kept) | `REVERSED_LANG_LOAN` (`bor`, `calque`), `REVERSED_LANG_DER` (`der`) |
+| repair / merge | `LIST_ARG_REPAIRED`, `DOTTED_CODE_MAPPED`, `MERGED_DUPLICATE` |
 
 ## Changelog
 
