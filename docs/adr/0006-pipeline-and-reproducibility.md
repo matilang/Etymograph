@@ -105,6 +105,7 @@ One entry per raw input, written by `fetch`:
 | `NOT_REACHABLE` | ancestor-file words and links not reachable from any target-language lemma |
 | `NON_LEMMA` | extract stage, above |
 | `MALFORMED_ARG` | an argument that cannot be repaired |
+| `RESERVED_MORPH` | compound and affix templates, reserved for `COMPOSED_OF` (ADR 0007) |
 
 Repairs are counted too: `LIST_ARG_REPAIRED` (wiktextract's stringified list arguments), and
 `DOTTED_CODE_MAPPED`. Duplicates merged under ADR 0003 are counted as `MERGED_DUPLICATE`.
