@@ -7,8 +7,8 @@
 # @someone) and remove the leading "# " so the rule becomes active.
 
 # Role 1: Data Engineer (Eldar)
-/etymo/                  @eldarvikalo
-/docs/data_contract.md   @eldarvikalo
+/etymo/                  @vikaloeldar
+/docs/data_contract.md   @vikaloeldar
 
 # Role 2: Graph Modeler (TBD)
 # /shapes/               @<ROLE2_GITHUB_USERNAME>

@@ -23,17 +23,24 @@ followed by French and Romanian.
 
 | Role | Owner | Responsibility | Main folders |
 |------|-------|----------------|--------------|
-| Role 1: Data Engineer | Eldar | Data pipeline, word identity, manifest, exports | `etymo/`, `docs/data_contract.md`, manifest, exports |
+| Role 1: Data Engineer | Eldar (@vikaloeldar) | Data pipeline, word identity, manifest, exports | `etymo/`, `docs/data_contract.md`, manifest, exports |
 | Role 2: Graph Modeler | TBD | Schema, SHACL constraints, data quality, golden set | `shapes/`, schema, data quality, golden set |
 | Role 3: Query & Analysis Lead | TBD | Queries, analysis, demo | `queries/`, analysis, `demo/` |
 
 ## Branch and commit conventions
 
-**Main branch**
+**Branch model**
 
-- `main` is always runnable. Nobody commits to `main` directly.
-- Every change goes through a pull request that at least one teammate reviews.
-- Pull requests are squash-merged into `main`.
+| Branch | Purpose |
+|--------|---------|
+| `main` | Verified milestone versions only, tagged `v0.1-plan`, `v0.5-mvp`, `v1.0-submission` |
+| `develop` | Integration branch; must always pass `make test` (the Makefile is planned for phase 1) |
+| working branches | One coherent step each, created from an up-to-date `develop` |
+
+- Nobody commits directly to `main` or `develop`.
+- Every change goes through a pull request into `develop` that at least one teammate reviews.
+- Pull requests are squash-merged into `develop`.
+- `main` is updated from `develop` only when a milestone is verified, and that version is tagged.
 
 **Branch names:** `<owner>/<type>-<area>-<topic>`, lowercase, words joined with hyphens.
 
@@ -64,7 +71,7 @@ feat(pipeline): resolve link targets by entry key
 decision changed.
 
 **Ownership:** [`.github/CODEOWNERS`](.github/CODEOWNERS) maps folders to owners: `etymo/` and
-`docs/data_contract.md` to Eldar, `shapes/` to Role 2, `queries/` and `demo/` to Role 3. The Role 2
+`docs/data_contract.md` to Eldar (@vikaloeldar), `shapes/` to Role 2, `queries/` and `demo/` to Role 3. The Role 2
 and Role 3 entries are placeholders until those owners are set.
 
 **Never commit** `data/` or `.env`. See
