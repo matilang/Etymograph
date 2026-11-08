@@ -39,12 +39,14 @@ file, `ety` is the most frequent etymology template in both de (18,792) and pl (
 |---|---|---|
 | `inh` | `inh`, `inh+`, `inh-lite` | `:inh` |
 | `bor` | `bor`, `bor+`, `lbor`, `slbor`, `obor`, `ubor`, `psm` | `:bor`, `:lbor`, `:slbor`, `:obor`, `:ubor` |
-| `der` | `der`, `der+`, `uder`, `der-lite` | `:der`, `:uder` |
-| `calque` | `cal`, `calque`, `clq`, `sl`, `semantic loan` | `:calque`, `:clq`, `:sl` |
+| `der` | `der`, `der+`, `uder`, `der-lite` | `:der`, `:uder`, `:from` |
+| `calque` | `cal`, `calque`, `clq`, `sl`, `semantic loan` | `:calque`, `:clq`, `:sl`, `:pcal` |
 
 - The table is the probe's mapping. `TODO(verify)`: the complete keyword list of `{{ety}}` /
-  `{{etymon}}` from the pinned `Module:etymon` (or its data module), and whether `psm` and `sl`
-  belong where they are put here (open question 1).
+  `{{etymon}}` from the pinned `Module:etymon` (or its data module).
+- **Decided (2026-11-08):** `psm` (phono-semantic matching) → `bor` and `sl` (semantic loan) →
+  `calque`. They are rare and behave like a loan and a calque in every query we plan; the raw
+  template name is kept on the link (`template`), so they can still be told apart.
 - **Not links:** `cog`, `ncog`, `noncog`, `doublet`, `m`, `l`, `root`, `dercat`, `etydate`, `glossary`
   and similar. They are counted in the extraction statistics but produce no link.
 - **Compounds and affixes** (`af`, `affix`, `compound`, `prefix`, `suffix`, `confix`, `blend` and the
@@ -152,6 +154,32 @@ this ADR.
 
 ## Open questions
 
-1. `psm` (phono-semantic matching) → `bor` and `sl` (semantic loan) → `calque`: acceptable, or should
-   they get their own types? The raw template is kept either way.
-2. `TODO(verify)`: complete `{{ety}}` keyword list; chain-break rules; confidence calibration.
+1. `TODO(verify)`: complete `{{ety}}` keyword list; chain-break rules; confidence calibration.
+
+## Verified in phase 1
+
+Surveyed on real de/pl lines (`{{ety}}`/`{{etymon}}` keywords and modifiers, 150,000 lines each).
+
+- **Keywords added to the table:** `:from` → `der` (generic "from"), `:pcal` (partial calque) →
+  `calque`. Morphology keywords count as `RESERVED_MORPH`: `af`, `affix`, `afeq`, `com`,
+  `compound`, `pre(fix)`, `suf(fix)`, `con(fix)`, `blend`, `bf`, `deverbal`, `univ`, `clip(ping)`,
+  `ellip(sis)`, `abbr(ev)`, `nom`. `:influence` and `:translit` are not links
+  (`NOT_LINK_KEYWORD`).
+- **Nesting:** `en:barter<ety:uder<enm:-<ety:uder<fro:barater>>>>`. The `<ety:kw<item>>` modifier
+  is a keyword followed by bracketed items; it gives links with `hop` = nesting depth. A
+  language-only item (`enm:-`) ends the nesting (`NO_TERM`).
+- **Items without a language code:** before any keyword they are the page's own term
+  (`{{ety|de|backe<unc>|:der|…}}`, `ETY_SELF_ITEM`, info only). After a keyword they are dropped as
+  `ITEM_WITHOUT_LANG` (`TODO(verify)`: whether `Module:etymon` defaults them to the entry language;
+  about 100 per file).
+- **Chain rules**, each found on a real entry:
+  1. a chain stays inside one sentence of `etymology_text`: the template expansions are located in
+     the prose (after the rendered "Etymology tree" block), and a `.` or `;` between two templates
+     ends the chain. Without this rule `de:Bank` etymology 2 would chain Italian *banco, banca* →
+     French *banque*;
+  2. kaikki lists a template and the one it renders (`{{inh}}` and `{{inh+}}`, in either order);
+     the same (language, term) twice in a row counts once (`de:Ziegel`);
+  3. two terms in one argument (`{{der|de|it|banco, banca}}`) are `MULTI_TERM`, not a link;
+  4. cognate and doublet templates end a chain, language-only templates do not.
+
+  With these four rules, no chain step in the full de and pl files links a word to itself.

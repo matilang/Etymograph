@@ -128,5 +128,20 @@ such as `LL.` and `ML.`.
 
 ## Open questions
 
-- `TODO(verify)`: default-rule parity with `getAncestors`; etymology-only ancestor fallback; source
-  of the dotted codes; the `historical` heuristic; share of comma-list codes.
+- `TODO(verify)`: default-rule parity with `getAncestors`; the `historical` heuristic; share of
+  comma-list codes. (Etymology-only fallback and the source of the dotted codes: see below.)
+
+## Verified in phase 1
+
+- **Reading the modules:** the data modules are Lua code, not plain tables. They use shared
+  tables (`s[...]`), character constants (`c.*`), `mw.loadData` and a final
+  `Module:languages.finalizeData` step. A regex parser (as in the probe) cannot resolve these, so
+  the modules are run with an embedded Lua interpreter (`lupa`) and small stand-ins for those
+  helpers.
+- **Dotted codes:** they are Wiktionary aliases, `export.aliases` in `Module:languages/data`:
+  `EL.` → `la-ecc`, `LL.` → `la-lat`, `ML.` → `la-med`, `NL.` → `la-new`, `VL.` → `la-vul` (plus
+  non-dotted ones such as `nds-DE`). The map is read from there, not written by hand.
+  `CL.` and `RL.` (in the probe's table) are not aliases and count as `UNKNOWN_LANG`.
+- **Etymology-only inheritance:** an etymology-only language inherits every field it does not set
+  from its parent, including `ancestors` and scripts (`make_stack` in `Module:languages`). Whether
+  `getAncestors` adds anything beyond the field is checked in phase 2.

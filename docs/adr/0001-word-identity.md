@@ -166,6 +166,47 @@ hand-written per-language rules are both forbidden.
 1. **Resolved (review of phase 0):** keys follow Wiktionary's `strip_diacritics` rules exactly,
    letter mappings included (`gmh` `ë → e`), because they only serve to find the page; `form` always
    keeps every letter and mark. See Consequences.
-2. `TODO(verify)`: exact algorithm order in `Module:languages`, script detection, etymology-only
-   fallback, the Reconstruction-page indicator in kaikki.
-3. `TODO(verify)`: share of `<id:…>` targets that match an `ety_ids` value (measured in phase 1).
+2. **Resolved (phase 1):** algorithm order, script detection, etymology-only fallback and the
+   Reconstruction-page indicator. See "Verified in phase 1".
+3. **Resolved (phase 1):** share of `<id:…>` targets that match an `ety_ids` value. See below.
+4. `TODO(verify)`: Ancient Greek (`grc`) is now a donor file (ADR 0006), but its key rule names a
+   Lua function module (see below). Until that rule is handled, `grc` keys are inexact and some
+   `grc` targets will not resolve.
+
+## Verified in phase 1
+
+Checked against the pinned module tar and kaikki files (dump 2026-10-01, extracted 2026-10-30).
+
+- **Algorithm order**, from `doSubstitutions` and `Language:stripDiacritics` in
+  `Module:languages`: detect the script; NFD; apply the script sub-rule (`Latn = {...}`) or the
+  fallback `[1]`; `from`/`to` substitutions (Lua patterns, on NFD, re-normalized before each one);
+  `remove_diacritics` with `remove_exceptions` protected by private-use placeholders; if the
+  language has no rule, the script's own rule; NFC; trim; drop one final `?`/`!`-type mark.
+  The key function follows these steps in this order.
+- **Script detection:** `findBestScript` with the `ranges` of `Module:scripts/data`
+  (single-script language: that script if any character matches; otherwise the script with most
+  matching characters, the first listed script wins ties).
+- **Etymology-only fallback:** confirmed. `Module:languages` reads every field an etymology-only
+  language does not set from its parent (`make_stack`), except unique fields such as the Wikidata
+  id. So `la-vul` uses Latin's rule through `la-cla`, and `zlw-mpl` its own.
+- **Rules that cannot be read as data:** some rules name a Lua function module (Ancient Greek:
+  `Grek-common`), and the Korean/Han ranges need Wiktionary's script-specific "fixed" NFD. For
+  these the key is the NFC form, flagged inexact and counted. Among the MVP files only `grc` uses
+  such a rule (open question 4).
+- **Reconstruction indicator:** kaikki sets `original_title` to
+  `Reconstruction:<Language>/<title>` on reconstruction pages (`word` has no `*`). This is used,
+  not the language type, because `gmw-pro` is not typed `reconstructed` in the module data.
+- **Entry key from the page title:** an entry's key is computed from its page title with the same
+  rule, and a title that the rule would change is counted as a check of the rule. Applied to the
+  372,525 lemma entries of the phase 1 files, the rule changes 23 titles, all special pages
+  (letter pages such as `gmh:ë`, Latin scribal abbreviations such as `n̄`, five Old High German
+  titles with macrons, three French phrases ending in `!`).
+- **Display form of an entry:** kaikki's `canonical` headword (`tēgula`) is the form only when it
+  has the same key as the page title. In de and pl it sometimes adds articles or notes
+  (`der Erbach`, `adrych m animacy unattested`); then the page title is the form.
+- **Sense ids:** of the targets that name a sense id and hit a page with several homographs,
+  91 of 98 match an `ety_ids` value in de and 286 of 286 in pl. Ambiguous targets are mostly
+  links without any id (de: 647 of 39,507 link candidates, 1.6%).
+- **Inexact keys in practice:** 1,934 de link targets (4.9%) are in languages whose rule cannot be
+  read as data: Ancient Greek 1,364, then Arabic, Hebrew, Yiddish. Arabic, Hebrew and Yiddish are
+  not loaded, so their targets are `no_file` stubs; Ancient Greek is open question 4.
