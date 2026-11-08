@@ -79,8 +79,14 @@ and Role 3 entries are placeholders until those owners are set.
 
 ## Role 1: data pipeline (status)
 
-**Exists now:** repository conventions (this README, `.gitignore`, `.github/CODEOWNERS`). There is no
-pipeline code yet.
+**Exists now:**
+
+- repository conventions (this README, `.gitignore`, `.github/CODEOWNERS`);
+- architecture decision records in [`docs/adr/`](docs/adr/README.md) (word identity, language model,
+  link model, Neo4j model, RDF layout, pipeline, extension slots), status: proposed;
+- data contract v1 in [`docs/data_contract.md`](docs/data_contract.md), status: proposed.
+
+There is no pipeline code yet.
 
 **Planned:**
 
@@ -91,10 +97,11 @@ pipeline code yet.
 | 2 | Clean tables for German + Polish; data-quality report; determinism check; golden set |
 | 3 | Neo4j loader; CSV + N-Quads export; `add-lang` dry run for Serbo-Croatian; CI workflow; setup docs |
 
-**For teammates (planned, not yet available):**
+**For teammates:**
 
-- Data contract: `docs/data_contract.md` (exact table schemas and the RDF layout).
-- Golden set: `tests/golden/` (German–Polish word pairs with expected paths).
+- Data contract: [`docs/data_contract.md`](docs/data_contract.md) (exact table schemas and the RDF
+  layout). Proposed; please review the columns and IRIs you will build on.
+- Golden set (planned, phase 2): `tests/golden/` (German–Polish word pairs with expected paths).
 
 ## Getting started
 
