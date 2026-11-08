@@ -81,6 +81,21 @@ this ADR.
   `extraction = template`. Each following template gives a link T(i−1) target → T(i) target with
   `hop = i`, `extraction = chain`. Example `de:Herz`: Herz → gmh:hërze (0) → goh:hërza (1) →
   gmw-pro:*hertā (2) → gem-pro:*hertô (3) → ine-pro:*ḱḗr (4).
+- **Chain hops vs. ancestor files (`CHAIN_SUPERSEDED`).** Take a chain link (`extraction = chain`)
+  whose source word S resolves to an entry (`status = entry`) from a loaded ancestor file, where that
+  entry still has at least one `hop = 0` link after filtering. That entry's own `hop = 0` links are
+  authoritative for S:
+  - if the chain link has the same (src, dst, type) as one of them, the two merge as duplicates
+    under the rule below (`evidence_count` + 1; the `template`, hop-0 evidence is the one kept);
+  - otherwise the chain link is dropped with reason `CHAIN_SUPERSEDED`, counted in the DQ report.
+
+  If S has no entry, or its entry has no `hop = 0` link, the chain link is kept: it is then the only
+  evidence for S's origin. Why: a word's own page is a better witness for its etymology than the
+  "from X, from Y" text on a descendant's page, and the probe's wrong long chains were chain hops
+  (`sh:umjetnost → … *umъ → de:Künstler`, the `de:Farm` chain mixing two words). Example: in
+  `de:Herz`, the chain link `gmh:hërze → goh:hërza` is checked against the `gmh` entry `herze` if
+  that file is loaded. Middle and Old High German have few entries (probe: 6% and 20% of referenced
+  words), so most German chain hops are still kept.
 - **Explicit nesting** in `{{ety}}`/`{{etymon}}` (`code:term<ety:kw<code:term>>`) gives links with
   `extraction = template` and `hop` = nesting depth.
 - **Old Polish `{{ety}}` trees** (`tree:"+"` / `tree=1`): the Polish entry names only its first hop

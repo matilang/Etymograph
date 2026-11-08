@@ -95,9 +95,14 @@ One entry per raw input, written by `fetch`:
 
 ### Graph rules (filter stage, from the probe)
 
+The filter stage applies the rules after resolution, in this order: `ANCESTOR_CHAIN_HOP`,
+`CHAIN_SUPERSEDED`, the language and term checks, `SELF_LOOP`, then `NOT_REACHABLE` (so reachability
+follows the links that survive).
+
 | Reason code | Rule |
 |---|---|
 | `ANCESTOR_CHAIN_HOP` | links from ancestor files keep only `hop = 0` (the entry's own first hop) |
+| `CHAIN_SUPERSEDED` | drop a chain link (`extraction = chain`) whose source word has an entry in a loaded ancestor file with its own `hop = 0` link(s); an identical chain link merges as a duplicate instead (ADR 0003) |
 | `REVERSED_LANG` | **`inh` only:** drop a link whose etymon's language descends from the derived word's language |
 | `REVERSED_LANG_LOAN` | **warning, link kept:** the same direction check fails on a `bor` or `calque` link |
 | `REVERSED_LANG_DER` | **warning, link kept:** the same direction check fails on a `der` link |

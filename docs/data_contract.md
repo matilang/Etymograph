@@ -213,7 +213,7 @@ ADR 0007):
 
 | Kind | Codes |
 |---|---|
-| drop (record removed) | `NON_LEMMA`, `UNKNOWN_LANG`, `MULTI_LANG_CODE`, `NO_TERM`, `EMPTY_TERM`, `MALFORMED_ARG`, `SELF_LOOP`, `REVERSED_LANG` (`inh` only), `ANCESTOR_CHAIN_HOP`, `NOT_REACHABLE`, `RESERVED_MORPH` |
+| drop (record removed) | `NON_LEMMA`, `UNKNOWN_LANG`, `MULTI_LANG_CODE`, `NO_TERM`, `EMPTY_TERM`, `MALFORMED_ARG`, `SELF_LOOP`, `REVERSED_LANG` (`inh` only), `ANCESTOR_CHAIN_HOP`, `CHAIN_SUPERSEDED`, `NOT_REACHABLE`, `RESERVED_MORPH` |
 | warning (link kept) | `REVERSED_LANG_LOAN` (`bor`, `calque`), `REVERSED_LANG_DER` (`der`) |
 | repair / merge | `LIST_ARG_REPAIRED`, `DOTTED_CODE_MAPPED`, `MERGED_DUPLICATE` |
 
