@@ -169,9 +169,7 @@ hand-written per-language rules are both forbidden.
 2. **Resolved (phase 1):** algorithm order, script detection, etymology-only fallback and the
    Reconstruction-page indicator. See "Verified in phase 1".
 3. **Resolved (phase 1):** share of `<id:…>` targets that match an `ety_ids` value. See below.
-4. `TODO(verify)`: Ancient Greek (`grc`) is now a donor file (ADR 0006), but its key rule names a
-   Lua function module (see below). Until that rule is handled, `grc` keys are inexact and some
-   `grc` targets will not resolve.
+4. **Decided (2026-11-08):** Ancient Greek (`grc`) keys. See "Ancient Greek keys" below.
 
 ## Verified in phase 1
 
@@ -190,9 +188,10 @@ Checked against the pinned module tar and kaikki files (dump 2026-10-01, extract
   language does not set from its parent (`make_stack`), except unique fields such as the Wikidata
   id. So `la-vul` uses Latin's rule through `la-cla`, and `zlw-mpl` its own.
 - **Rules that cannot be read as data:** some rules name a Lua function module (Ancient Greek:
-  `Grek-common`), and the Korean/Han ranges need Wiktionary's script-specific "fixed" NFD. For
-  these the key is the NFC form, flagged inexact and counted. Among the MVP files only `grc` uses
-  such a rule (open question 4).
+  the `Polyt` script rule `Module:Polyt-stripdiacritics`, which calls `Module:Grek-common`), and
+  the Korean/Han ranges need Wiktionary's script-specific "fixed" NFD. For these the key is the
+  NFC form, flagged inexact and counted. Among the MVP files only `grc` uses such a rule; it gets
+  one step of its rule (below).
 - **Reconstruction indicator:** kaikki sets `original_title` to
   `Reconstruction:<Language>/<title>` on reconstruction pages (`word` has no `*`). This is used,
   not the language type, because `gmw-pro` is not typed `reconstructed` in the module data.
@@ -209,4 +208,19 @@ Checked against the pinned module tar and kaikki files (dump 2026-10-01, extract
   links without any id (de: 647 of 39,507 link candidates, 1.6%).
 - **Inexact keys in practice:** 1,934 de link targets (4.9%) are in languages whose rule cannot be
   read as data: Ancient Greek 1,364, then Arabic, Hebrew, Yiddish. Arabic, Hebrew and Yiddish are
-  not loaded, so their targets are `no_file` stubs; Ancient Greek is open question 4.
+  not loaded, so their targets are `no_file` stubs; for Ancient Greek see below.
+
+## Ancient Greek keys (decided 2026-11-08)
+
+`Module:Polyt-stripdiacritics` (pinned module tar) does, in order: the `Grek-common` character
+substitutions (apostrophe variants, tilde → perispomeni, Latin look-alike letters); remove the
+length marks macron U+0304 and breve U+0306, and the double undertie U+035C; grave → acute unless
+another word follows; `ῤῥ` → `ρρ`; NFC.
+
+- **Decision:** the `grc` key implements only the length-mark step: NFD, remove U+0304 and U+0306,
+  NFC. Accents and breathings stay. Example from `de`: target `δημοκρᾰτῐ́ᾱ` has the key
+  `δημοκρατία`, the page title.
+- This is one step of Wiktionary's own rule, not a rule of our own (section 3 of the diacritics
+  policy). It covers the common case: etymologies write vowel length, page titles do not.
+- The other steps are not implemented, so `grc` keys stay flagged inexact. `grc` targets that still
+  do not match an entry become `no_entry` stubs, and the DQ report shows their share.
