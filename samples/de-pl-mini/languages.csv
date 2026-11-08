@@ -1,0 +1,27 @@
+code,name,wikt_type,category,family_code,parent_code,full_code,scripts,wikidata_qid,has_strip_rule,glottocode,iso639_3,run_id
+de,German,regular,historical,gmw-hgm,,de,"[""Brai"",""Latf"",""Latn""]",Q188,false,,,r_8364c8ed0444
+de-ear,Early New High German,etymology-only,etymology-only,,de,de,"[""Brai"",""Latf"",""Latn""]",Q1472199,false,,,r_8364c8ed0444
+fr,French,regular,historical,roa-oil,,fr,"[""Brai"",""Latn""]",Q150,false,,,r_8364c8ed0444
+frm,Middle French,regular,historical,roa-oil,,frm,"[""Latn""]",Q1473289,false,,,r_8364c8ed0444
+fro,Old French,regular,historical,roa-oil,,fro,"[""Hebr"",""Latn""]",Q35222,true,,,r_8364c8ed0444
+gem-pro,Proto-Germanic,reconstructed,proto,gem,,gem-pro,"[""Latn""]",Q669623,false,,,r_8364c8ed0444
+gmh,Middle High German,regular,historical,gmw-hgm,,gmh,"[""Latn""]",Q837985,true,,,r_8364c8ed0444
+gmw-pro,Proto-West Germanic,regular,historical,gmw,,gmw-pro,"[""Latn"",""Runr""]",Q78079021,false,,,r_8364c8ed0444
+goh,Old High German,regular,historical,gmw-hgm,,goh,"[""Latn"",""Runr""]",Q35218,true,,,r_8364c8ed0444
+grc,Ancient Greek,regular,modern,grk,,grc,"[""Cprt"",""Polyt""]",Q35497,true,,,r_8364c8ed0444
+grk-pro,Proto-Hellenic,reconstructed,proto,grk,,grk-pro,"[""Latn"",""Polyt""]",Q1231805,true,,,r_8364c8ed0444
+ine-bsl-pro,Proto-Balto-Slavic,reconstructed,proto,ine-bsl,,ine-bsl-pro,"[""Latn""]",Q1703347,false,,,r_8364c8ed0444
+ine-pro,Proto-Indo-European,reconstructed,proto,ine,,ine-pro,"[""Latn""]",Q37178,false,,,r_8364c8ed0444
+it,Italian,regular,modern,roa-itr,,it,"[""Latn""]",Q652,false,,,r_8364c8ed0444
+itc-ala,Archaic Latin,etymology-only,etymology-only,,la,la,"[""Ital"",""Latn""]",,true,,,r_8364c8ed0444
+itc-ola,Old Latin,etymology-only,etymology-only,,la,la,"[""Latn""]",Q12289,true,,,r_8364c8ed0444
+itc-pro,Proto-Italic,reconstructed,proto,itc,,itc-pro,"[""Latn""]",Q17102720,false,,,r_8364c8ed0444
+la,Latin,regular,historical,itc-laf,,la,"[""Ital"",""Latn""]",Q397,true,,,r_8364c8ed0444
+la-cla,Classical Latin,etymology-only,etymology-only,,la,la,"[""Ital"",""Latn""]",Q253854,true,,,r_8364c8ed0444
+la-lat,Late Latin,etymology-only,etymology-only,,la,la,"[""Ital"",""Latn""]",Q1503113,true,,,r_8364c8ed0444
+la-vul,Vulgar Latin,etymology-only,etymology-only,,la-cla,la,"[""Ital"",""Latn""]",Q37560,true,,,r_8364c8ed0444
+pl,Polish,regular,modern,zlw-lch,,pl,"[""Latn""]",Q809,false,,,r_8364c8ed0444
+roa-oit,Old Italian,etymology-only,etymology-only,,it,it,"[""Latn""]",,false,,,r_8364c8ed0444
+sla-pro,Proto-Slavic,reconstructed,proto,sla,,sla-pro,"[""Latn""]",Q747537,true,,,r_8364c8ed0444
+zlw-mpl,Middle Polish,etymology-only,etymology-only,,pl,pl,"[""Latn""]",Q402878,true,,,r_8364c8ed0444
+zlw-opl,Old Polish,regular,historical,zlw-lch,,zlw-opl,"[""Latn""]",Q149838,true,,,r_8364c8ed0444

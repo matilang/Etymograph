@@ -1,0 +1,18 @@
+# Neo4j for the de-pl-mini sample only (Role 2 / Role 3 can start before the pipeline exists).
+# Start:  docker compose up -d       (from this folder)
+# Load:   see README.md
+name: etymograph-sample
+
+services:
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: etymograph-sample-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/${SAMPLE_NEO4J_PASSWORD:-etymograph-sample}
+      NEO4J_PLUGINS: '["apoc"]'
+    ports:
+      - "${SAMPLE_HTTP_PORT:-7474}:7474"
+      - "${SAMPLE_BOLT_PORT:-7687}:7687"
+    volumes:
+      # The sample folder is Neo4j's import directory, so LOAD CSV can read file:///words.csv.
+      - ./:/import:ro

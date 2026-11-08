@@ -1,0 +1,12 @@
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://matilang.github.io/Etymograph/ns/ety#Reconstruction> <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://matilang.github.io/Etymograph/ns/ety#Word> <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#etyId> "heart" <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#etymNo> "0"^^<http://www.w3.org/2001/XMLSchema#integer> <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#form> "*sь̑rdьce" <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#gloss> "diminutive of *sьrdь (“heart”)" <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#inLanguage> <https://matilang.github.io/Etymograph/id/lang/sla-pro> <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#key> "*sьrdьce" <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#pos> "noun" <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#runId> "r_8364c8ed0444" <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#sourceFile> <https://matilang.github.io/Etymograph/id/lang/sla-pro> <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
+<https://matilang.github.io/Etymograph/id/word/w_faae0fbba97d4070> <https://matilang.github.io/Etymograph/ns/ety#status> "entry" <https://matilang.github.io/Etymograph/id/graph/sla-pro> .
