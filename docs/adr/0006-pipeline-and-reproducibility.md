@@ -131,7 +131,8 @@ warning codes get their own counts so that Role 2 can turn either into a drop if
 mostly errors.
 
 Repairs are counted too: `LIST_ARG_REPAIRED` (wiktextract's stringified list arguments), and
-`DOTTED_CODE_MAPPED`. Duplicates merged under ADR 0003 are counted as `MERGED_DUPLICATE`.
+`ALIAS_CODE_MAPPED` (Wiktionary alias codes such as `LL.`, ADR 0002). Duplicates merged under
+ADR 0003 are counted as `MERGED_DUPLICATE`.
 Every drop and every warning is a row in the stage's `drops.parquet` (reason, `severity` = `drop` or
 `warning`, source entry, raw template); a warning row does not remove the link. The DQ report gives
 counts per reason, resolution rates and the top unresolved targets.
@@ -169,4 +170,18 @@ counts per reason, resolution rates and the top unresolved targets.
 
 ## Open questions
 
-- `TODO(verify)`: module tar URL and pin; manifest dump-date source; timing of the global steps.
+- `TODO(verify)`: timing of the global steps. (Module tar URL and dump-date source: see below.)
+
+## Verified in phase 1
+
+- **Module tar:** `https://kaikki.org/dictionary/wiktionary-modules.tar.gz` (89.6 MB), from the
+  same extraction as the JSONL files.
+- **Dump information:** every kaikki page ends with "extracted on 2026-10-30 from the
+  enwiktionary dump dated 2026-10-01 using wiktextract (19f9a30 and 6f96ddf)". This is the
+  source of the manifest's dump date and wiktextract version. Fetch should read it before and
+  after downloading and refuse to mix two extractions, because kaikki can publish a new one at
+  any time.
+- **Sizes:** de is 1.1 GB (371,793 entries), pl 0.9 GB, la 1.25 GB; the 12 phase 1 files together
+  are 4.1 GB. Downloading them took about 36 min at ~1.7 MiB/s, so fetch must be resumable.
+  A streaming prototype read the full de file in seconds, so the global resolve step of
+  `add-lang` is expected to stay cheap (`TODO(verify)` in phase 2).

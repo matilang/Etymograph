@@ -150,8 +150,8 @@ timings live in the run record `data/runs/{run_id}.json`, and the Neo4j loader a
 | `target_languages` | list<string> | no | | `["de","pl"]` |
 | `ancestor_files` | list<string> | no | | `["gem-pro","gmh",…]` |
 | `manifest_sha256` | string | no | SHA-256 of `data/raw/manifest.json` | |
-| `dump_date` | string | yes | enwiktionary dump date of the kaikki files (`YYYY-MM-DD`); `TODO(verify)` source | `2026-10-01` |
-| `wiktextract_version` | string | yes | `TODO(verify)` source | |
+| `dump_date` | string | yes | enwiktionary dump date of the kaikki files (`YYYY-MM-DD`), from the kaikki page footer (ADR 0006) | `2026-10-01` |
+| `wiktextract_version` | string | yes | wiktextract commits from the kaikki page footer (ADR 0006) | `19f9a30 6f96ddf` |
 | `n_languages`, `n_words`, `n_links` | int | no | row counts of this run | |
 
 ## 8. N-Quads layout
@@ -213,10 +213,16 @@ ADR 0007):
 
 | Kind | Codes |
 |---|---|
-| drop (record removed) | `NON_LEMMA`, `UNKNOWN_LANG`, `MULTI_LANG_CODE`, `NO_TERM`, `EMPTY_TERM`, `MALFORMED_ARG`, `SELF_LOOP`, `REVERSED_LANG` (`inh` only), `ANCESTOR_CHAIN_HOP`, `CHAIN_SUPERSEDED`, `NOT_REACHABLE`, `RESERVED_MORPH` |
+| drop (record removed) | `NON_LEMMA`, `UNKNOWN_LANG`, `MULTI_LANG_CODE`, `MULTI_TERM`, `NO_TERM`, `EMPTY_TERM`, `MALFORMED_ARG`, `ITEM_WITHOUT_LANG`, `NOT_LINK_KEYWORD`, `SELF_LOOP`, `REVERSED_LANG` (`inh` only), `ANCESTOR_CHAIN_HOP`, `CHAIN_SUPERSEDED`, `NOT_REACHABLE`, `RESERVED_MORPH` |
 | warning (link kept) | `REVERSED_LANG_LOAN` (`bor`, `calque`), `REVERSED_LANG_DER` (`der`) |
-| repair / merge | `LIST_ARG_REPAIRED`, `DOTTED_CODE_MAPPED`, `MERGED_DUPLICATE` |
+| repair / merge | `LIST_ARG_REPAIRED`, `ALIAS_CODE_MAPPED`, `MERGED_DUPLICATE` |
+| info (nothing removed) | `ETY_SELF_ITEM` (the page's own term inside `{{ety}}`) |
 
 ## Changelog
 
 - **v1** (phase 0): initial contract.
+- **v1, phase 1 clarification** (no column change): new reason codes `MULTI_TERM`,
+  `ITEM_WITHOUT_LANG`, `NOT_LINK_KEYWORD`, `ETY_SELF_ITEM` (ADR 0003); `DOTTED_CODE_MAPPED`
+  renamed `ALIAS_CODE_MAPPED` because Wiktionary's alias table also has non-dotted codes
+  (ADR 0002). `words.form` of an entry is kaikki's canonical headword when it has the same key as
+  the page title, otherwise the page title (ADR 0001). Base IRI decided (ADR 0005).
