@@ -89,9 +89,12 @@ One entry per raw input, written by `fetch`:
   lookup can tell "unknown word" from "no known link".
 - **Ancestor files**: the full-language ancestors of the target languages from the module data
   (ADR 0002) plus configured donor files. Default MVP set: `gmh`, `goh`, `gmw-pro`, `gem-pro`,
-  `ine-pro`, `zlw-opl`, `sla-pro`, `ine-bsl-pro`, `la`, `fr`. `TODO(verify)`: generate the ancestor
-  part from the module data; decide on `fro`, `frm`, `grc` and `en` (3.4 GB) as donors (open
-  question). Entries of ancestor files become words only if reachable from a target-language lemma.
+  `ine-pro`, `zlw-opl`, `sla-pro`, `ine-bsl-pro`, `la`, `fr`, `fro`, `frm`, `grc`.
+  **Decided (2026-11-08):** Old French (`fro`) and Middle French (`frm`) are added so French loans
+  reach Latin, and Ancient Greek (`grc`) so learned words reach Greek. English (`en`, 3.4 GB) is
+  not loaded in the MVP; English targets stay `no_file` stubs. `TODO(verify)`: generate the
+  ancestor part from the module data. Entries of ancestor files become words only if reachable
+  from a target-language lemma.
 
 ### Graph rules (filter stage, from the probe)
 
@@ -166,5 +169,4 @@ counts per reason, resolution rates and the top unresolved targets.
 
 ## Open questions
 
-- Donor files beyond `la` and `fr` (`fro`, `frm`, `grc`, `en`?).
 - `TODO(verify)`: module tar URL and pin; manifest dump-date source; timing of the global steps.

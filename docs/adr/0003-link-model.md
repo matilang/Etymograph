@@ -43,8 +43,10 @@ file, `ety` is the most frequent etymology template in both de (18,792) and pl (
 | `calque` | `cal`, `calque`, `clq`, `sl`, `semantic loan` | `:calque`, `:clq`, `:sl` |
 
 - The table is the probe's mapping. `TODO(verify)`: the complete keyword list of `{{ety}}` /
-  `{{etymon}}` from the pinned `Module:etymon` (or its data module), and whether `psm` and `sl`
-  belong where they are put here (open question 1).
+  `{{etymon}}` from the pinned `Module:etymon` (or its data module).
+- **Decided (2026-11-08):** `psm` (phono-semantic matching) → `bor` and `sl` (semantic loan) →
+  `calque`. They are rare and behave like a loan and a calque in every query we plan; the raw
+  template name is kept on the link (`template`), so they can still be told apart.
 - **Not links:** `cog`, `ncog`, `noncog`, `doublet`, `m`, `l`, `root`, `dercat`, `etydate`, `glossary`
   and similar. They are counted in the extraction statistics but produce no link.
 - **Compounds and affixes** (`af`, `affix`, `compound`, `prefix`, `suffix`, `confix`, `blend` and the
@@ -152,6 +154,4 @@ this ADR.
 
 ## Open questions
 
-1. `psm` (phono-semantic matching) → `bor` and `sl` (semantic loan) → `calque`: acceptable, or should
-   they get their own types? The raw template is kept either way.
-2. `TODO(verify)`: complete `{{ety}}` keyword list; chain-break rules; confidence calibration.
+1. `TODO(verify)`: complete `{{ety}}` keyword list; chain-break rules; confidence calibration.

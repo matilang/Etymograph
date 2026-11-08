@@ -159,7 +159,7 @@ timings live in the run record `data/runs/{run_id}.json`, and the Neo4j loader a
 Full rationale in [ADR 0005](adr/0005-rdf-export-layout.md).
 
 - Vocabulary `ety:` = `https://matilang.github.io/Etymograph/ns/ety#`; data `etyd:` =
-  `https://matilang.github.io/Etymograph/id/` (`TODO(verify)`: agreed with the team).
+  `https://matilang.github.io/Etymograph/id/` (decided, ADR 0005).
 - One file per named graph, lines sorted: `{code}.nq` for each language file
   (graph `etyd:graph/{code}`) and `languages.nq` (graph `etyd:graph/languages`). Nothing in the
   default graph.

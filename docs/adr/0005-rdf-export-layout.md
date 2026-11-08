@@ -32,8 +32,8 @@ link attributes must be reachable by SHACL.
 | `etyd:` | `https://matilang.github.io/Etymograph/id/` | data (words, links, languages, runs, graphs) |
 
 - The base is under the repository owner's GitHub Pages domain so it is ours and stable; it does not
-  need to resolve. `TODO(verify)`: team agreement on the base IRI (it is hard to change after Role 2
-  writes shapes against it).
+  need to resolve. **Decided (2026-11-08):** this base IRI is final, so Role 2 can write shapes
+  against it.
 
 ### IRIs
 
@@ -136,4 +136,4 @@ etyd:lang/pl ety:hasAncestor etyd:lang/zlw-mpl ; ety:family etyd:family/zlw-lch 
 
 ## Open questions
 
-- `TODO(verify)`: base IRI agreed with the team; language and family code character sets.
+- `TODO(verify)`: language and family code character sets.
