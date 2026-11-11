@@ -8,8 +8,10 @@
 
 # Role 1: Data Engineer (Eldar)
 /etymo/                                         @vikaloeldar
+/tests/                                         @vikaloeldar
 /docs/data_contract.md                          @vikaloeldar
 /docs/adr/0001-word-identity.md                 @vikaloeldar
+/docs/adr/0002-language-model.md                @vikaloeldar
 /docs/adr/0003-link-model.md                    @vikaloeldar
 /docs/adr/0006-pipeline-and-reproducibility.md  @vikaloeldar
 
