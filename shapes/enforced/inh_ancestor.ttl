@@ -1,0 +1,24 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix ety:  <https://matilang.github.io/Etymograph/ns/ety#> .
+@prefix etys: <https://matilang.github.io/Etymograph/ns/shapes#> .
+
+etys:InhTargetsAncestorShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Link ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "inh link: etymon language {?dstLang} is not an ancestor (or a variety of one) of {?srcLang}" ;
+        sh:prefixes etys: ;
+        sh:select """
+            SELECT $this ?srcLang ?dstLang WHERE {
+              $this ety:linkType "inh" ;
+                    ety:source ?s ;
+                    ety:target ?t .
+              ?s ety:inLanguage ?srcLang .
+              ?t ety:inLanguage ?dstLang .
+              FILTER NOT EXISTS {
+                ?srcLang ety:hasAncestor/(ety:hasAncestor|ety:variantOf)* ?dstLang
+              }
+            }
+        """ ;
+    ] .

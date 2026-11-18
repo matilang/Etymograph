@@ -1,0 +1,22 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix ety:  <https://matilang.github.io/Etymograph/ns/ety#> .
+@prefix etys: <https://matilang.github.io/Etymograph/ns/shapes#> .
+
+
+etys:NoCycleShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Link ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "{?type} link is part of a derivation cycle: {?t} leads back to {?s}" ;
+        sh:prefixes etys: ;
+        sh:select """
+            SELECT $this ?type ?s ?t WHERE {
+              $this ety:linkType ?type ;
+                    ety:source ?s ;
+                    ety:target ?t .
+              ?t ety:derivedFrom* ?s .
+            }
+        """ ;
+    ] .

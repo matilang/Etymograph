@@ -1,0 +1,8 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix etys: <https://matilang.github.io/Etymograph/ns/shapes#> .
+
+etys: sh:declare [
+    sh:prefix    "ety" ;
+    sh:namespace "https://matilang.github.io/Etymograph/ns/ety#"^^xsd:anyURI ;
+] .
