@@ -1,0 +1,421 @@
+# 1 ---------------------------------------------------------------------------
+- id: ziegel-cegla
+  kind: pair
+  relation: related
+  a: de:Ziegel
+  b: pl:cegła
+  common_ancestor: gmh:ziegel
+  expected_v1: connected
+  path_a:
+    - [de:Ziegel, inh, gmh:ziegel]
+  path_b:
+    - [pl:cegła, inh, zlw-opl:cegła]
+    - [zlw-opl:cegła, bor, gmh:ziegel]
+  beyond:
+    - [gmh:ziegel, inh, goh:ziegal]
+    - [goh:ziegal, inh, gmw-pro:*tigulā]
+    - [gmw-pro:*tigulā, inh, gem-pro:*tigulǭ]
+    - [gem-pro:*tigulǭ, bor, la:tēgula]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: Polish Wiktionary skips the Proto-Germanic step; we follow English Wiktionary.
+
+# 2 ---------------------------------------------------------------------------
+- id: herz-serce
+  kind: pair
+  relation: related
+  a: de:Herz
+  b: pl:serce
+  common_ancestor: ine-pro:*ḱerd-     # the truth, per en.wiktionary
+  expected_v1: not_connected
+  path_a:
+    - [de:Herz, inh, gmh:hërze]
+    - [gmh:hërze, inh, goh:hërza]
+    - [goh:hërza, inh, gmw-pro:*hertā]
+    - [gmw-pro:*hertā, inh, gem-pro:*hertô]
+    - [gem-pro:*hertô, inh, ine-pro:*ḱérd]
+  path_b:
+    - [pl:serce, inh, zlw-opl:serce]
+    - [zlw-opl:serce, inh, sla-pro:*sь̑rdьce]
+    # path breaks here in v1: *sь̑rdьce = *sьrdь + *-ьce (affix, COMPOSED_OF, not loaded)
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Real cognates. v1 cannot connect them: (1) the Proto-Slavic step is an affix
+    template (RESERVED_MORPH); (2) German ends at *ḱérd, Slavic at *ḱḗr / *ḱerd-,
+    which are different word nodes. Becomes a test case once COMPOSED_OF is loaded.
+
+# 3 ---------------------------------------------------------------------------
+- id: kuche-kuchnia
+  kind: pair
+  relation: related
+  a: de:Küche
+  b: pl:kuchnia
+  common_ancestor: goh:chuhhina
+  expected_v1: connected
+  path_a:
+    - [de:Küche, inh, gmh:küche]
+    - [gmh:küche, inh, goh:chuhhina]
+  path_b:
+    - [pl:kuchnia, inh, zlw-opl:kuchnia]
+    - [zlw-opl:kuchnia, bor, goh:chuhhina]
+  beyond:
+    - [goh:chuhhina, inh, gmw-pro:*kukinā]
+    - [gmw-pro:*kukinā, bor, la:cocīna]   # template code la-lat (Late Latin), filed under la
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Related via a loan: German inherited the word, Old Polish borrowed it from
+    Old High German. They meet at goh:chuhhina.
+
+# 4 ---------------------------------------------------------------------------
+- id: bank-homographs
+  kind: homograph
+  words:
+    - word: de:Bank#1
+      gloss: bench
+      ety_id: bench
+      path:
+        - [de:Bank#1, inh, goh:banc]
+        - [goh:banc, inh, gmw-pro:*banki]       # chain step (inferred from "from X, from Y")
+        - [gmw-pro:*banki, inh, gem-pro:*bankiz]
+    - word: de:Bank#2
+      gloss: financial institution
+      ety_id: institution
+      path:
+        - [de:Bank#2, der, it:banco]
+        - [de:Bank#2, der, it:banca]
+        - [de:Bank#2, der, fr:banque]           # weak: prose says only a variant form was influenced
+  expected_v1: >
+    two separate word nodes; Bank#2 must not reach gem-pro:*bankiz,
+    and Bank#1 must not reach it:banco / it:banca / fr:banque
+  checked: en.wiktionary.org (wikitext), 2026-11-23
+  notes: >
+    Bank#1: MHG is named without a form ({{inh|de|gmh|-}}, NO_TERM), so the path
+    starts at goh:banc. {{m|goh|bank||height}} and {{cog|osx|bank}} are not links.
+    Bank#2: links come from {{etymon|de|id=institution|:der|it:banco|it:banca}};
+    {{der|de|it|banco, banca}} is MULTI_TERM (no link). {{der|de|fr|banque}} gives a
+    der link although the prose says "under influence of" (template and meaning
+    disagree). Etymology 2 says the Italian words come from goh bank (etymology 1),
+    so both Banks are truly related, but only via an {{m+}} mention and unloaded
+    Italian: v1 correctly keeps them apart.
+
+# 5 ---------------------------------------------------------------------------
+- id: bank-bank
+  kind: pair
+  relation: related
+  a: de:Bank#2
+  b: pl:bank
+  common_ancestor: null                   # disputed between the pages, see notes
+  expected_v1: not_connected
+  path_a:
+    - [de:Bank#2, der, it:banco]          # it not loaded: no_file stub
+    - [de:Bank#2, der, it:banca]          # it not loaded: no_file stub
+  path_b:
+    - [pl:bank, der, lng:bank]            # lng not loaded: no_file stub
+  checked: en.wiktionary.org (wikitext), 2026-11-23
+  notes: >
+    Related in reality, but en.wiktionary disagrees on the route:
+    (1) the Polish page names only {{der|pl|lng|bank}} (Lombardic);
+    (2) the German page traces Italian banco/banca to goh bank, and its Descendants
+    list has {{desc|bor=1|pl|bank}} (Polish borrowed from German).
+    Descendants sections are not read, so (2) gives no link. Both sides end at
+    no_file stubs on different nodes, so v1 cannot connect them.
+    On the Polish page, {{cog|en|bank}}, {{cog|fr|banque}}, {{cog|de|Bank}} are
+    cognates, {{dercat|pl|gmw-pro|gem-pro|ine-pro}} is categories only, and the
+    Brückner reference (via Italian banco from German Bank) is a citation, not a link.
+    Missing-data case, not a pipeline error.
+
+# 6 ---------------------------------------------------------------------------
+- id: adresse-adres
+  kind: pair
+  relation: related
+  a: de:Adresse
+  b: pl:adres
+  common_ancestor: fr:adresse
+  expected_v1: connected
+  path_a:
+    - [de:Adresse, bor, fr:adresse] # unadapted borrowing
+  path_b:
+    - [pl:adres, bor, fr:adresse]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: French loan in both languages, both Polish and German loan from French.
+
+# 7 ---------------------------------------------------------------------------
+- id: kreide-kreda
+  kind: pair
+  relation: related
+  a: de:Kreide
+  b: pl:kreda
+  common_ancestor: de:Kreide
+  expected_v1: connected
+  path_a: []
+  path_b:
+    - [pl:kreda, bor, de:Kreide]
+  beyond:
+    - [de:Kreide, inh, gmh:krīde]        # parallel der link too (has_parallel)
+    - [gmh:krīde, inh, goh:krīda]        # parallel der link too (has_parallel)
+    - [goh:krīda, inh, gmw-pro:*krīdā]
+    - [gmw-pro:*krīdā, bor, la:*crēda]   # template code la-vul (Vulgar Latin), filed under la
+    - [gmw-pro:*krīdā, bor, la:crēta]    # second source, a separate link
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Direct loan: Polish borrowed the German word, so the German word itself is the
+    meeting point (path_a is empty, zero steps). Tests that the common-ancestor
+    query includes the start word (*0..).
+
+# 8 ---------------------------------------------------------------------------
+- id: kirche-cerkiew
+  kind: pair
+  relation: related
+  a: de:Kirche
+  b: pl:cerkiew
+  common_ancestor: goh:kirihha
+  expected_v1: connected
+  path_a:
+    - [de:Kirche, inh, gmh:kirche]
+    - [gmh:kirche, inh, goh:kirihha]
+  path_b:
+    - [pl:cerkiew, inh, sla-pro:*cьrky]
+    - [sla-pro:*cьrky, der, goh:kirihha]
+  checked: en.wiktionary.org (wikitext), 2026-11-23
+  notes: >
+    Same source word, different meaning today: cerkiew is an Orthodox church;
+    the everyday Polish word for Kirche is kościół (see kirche-kosciol).
+
+# 9 ---------------------------------------------------------------------------
+- id: kirche-kosciol
+  kind: pair
+  relation: unrelated
+  a: de:Kirche
+  b: pl:kościół
+  common_ancestor: null
+  expected_v1: not_connected
+  path_a:
+    - [de:Kirche, inh, gmh:kirche]
+    - [gmh:kirche, inh, goh:kirihha]
+  path_b:
+    - [pl:kościół, inh, zlw-opl:kościół]
+    - [zlw-opl:kościół, bor, zlw-ocs:kostel]
+    - [zlw-ocs:kostel, bor, goh:kastel]   # v1 stops before this step: Old Czech not loaded
+  checked: en.wiktionary.org (wikitext), 2026-11-23
+  notes: >
+    Translation equivalents with unrelated origins: Kirche from the Greek source word
+    (via Germanic), kościół from Latin castellum (via Old Czech and Old High German).
+    True negative: any connection would be a false path. The graph links word
+    histories, not meanings.
+
+# 10 --------------------------------------------------------------------------
+- id: fenster-okno
+  kind: pair
+  relation: unrelated
+  a: de:Fenster
+  b: pl:okno
+  common_ancestor: null
+  expected_v1: not_connected
+  path_a:
+    - [de:Fenster, inh, gmh:vënster]
+    - [gmh:vënster, inh, goh:fënstar]
+    - [goh:fënstar, inh, gmw-pro:*fenestr]
+    - [gmw-pro:*fenestr, bor, la:fenestra]
+  path_b:
+    - [pl:okno, inh, zlw-opl:okno]
+    - [zlw-opl:okno, inh, sla-pro:*okъnò]
+    # v1 stops here: *okъnò = *oko + *-ъno (affix, COMPOSED_OF, not loaded).
+    # Beyond, via the stem *oko: der ine-bsl-pro *ak- → der ine-pro *h₃ókʷs (= *h₃ekʷ- + *-s)
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Translation equivalents with unrelated origins: Latin fenestra vs Slavic *okъnò
+    (from *oko "eye" + suffix). In v1 the Polish path ends at sla-pro:*okъnò (affix
+    step not loaded); the stem continues via *oko to PIE *h₃ókʷs. Any connection to
+    Fenster would be a false path.
+
+# 11 --------------------------------------------------------------------------
+- id: konstitution-konstytucja
+  kind: pair
+  relation: related
+  a: de:Konstitution
+  b: pl:konstytucja
+  common_ancestor: la:cōnstitūtio
+  expected_v1: connected
+  path_a:
+    - [de:Konstitution, inh, gmh:constitucion]
+    - [gmh:constitucion, der, la:cōnstitūtio]
+  path_b:
+    - [pl:konstytucja, bor, la:cōnstitūtio]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Latin source on both sides: Polish borrowed it directly, German via Middle High German.
+
+# 12 --------------------------------------------------------------------------
+- id: schule-szkola
+  kind: pair
+  relation: related
+  a: de:Schule
+  b: pl:szkoła
+  common_ancestor: gmh:schuole
+  expected_v1: connected
+  path_a:
+    - [de:Schule, inh, gmh:schuole]
+  path_b:
+    - [pl:szkoła, inh, zlw-opl:szkoła]
+    - [zlw-opl:szkoła, bor, gmh:schuole]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Related via a loan: German inherited the word, Old Polish borrowed it from
+    Middle High German. They meet at gmh:schuole.
+
+# 13 --------------------------------------------------------------------------
+- id: most-most
+  kind: pair
+  relation: unrelated
+  a: de:Most
+  b: pl:most
+  common_ancestor: null
+  expected_v1: not_connected
+  path_a:
+    - [de:Most, inh, gmh:most]
+    - [gmh:most, inh, goh:most]
+    - [goh:most, inh, gmw-pro:*most]
+    - [gmw-pro:*most, bor, la:mustum]
+  path_b:
+    - [pl:most, inh, zlw-opl:most]
+    - [zlw-opl:most, inh, sla-pro:*mostъ]
+  # after this step, v1 stops: *mostъ = *most + *-ъ (affix, COMPOSED_OF, not loaded)
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    False friend: identical spelling, unrelated words. German Most goes back to a
+    loan from Latin mustum "new wine"; Polish most is inherited from Proto-Slavic
+    *mostъ "bridge". Tests that words are never connected by spelling alone.
+
+# 14 --------------------------------------------------------------------------
+- id: kessel-kociol
+  kind: pair
+  relation: related
+  a: de:Kessel
+  b: pl:kocioł
+  common_ancestor: gem-pro:*katilaz
+  expected_v1: not_connected
+  path_a:
+    - [de:Kessel, inh, gmh:keȥȥel]
+    - [gmh:keȥȥel, inh, goh:keȥȥil]
+    - [goh:keȥȥil, inh, gmw-pro:*katil]
+    - [gmw-pro:*katil, inh, gem-pro:*katilaz]
+  path_b:
+    - [pl:kocioł, inh, zlw-opl:kocioł]
+    - [zlw-opl:kocioł, inh, sla-pro:*kotьlъ]
+    - [sla-pro:*kotьlъ, bor, got:katil]      # v1 stops here: Gothic not loaded (no_file stub)
+    - [got:katil, inh, gem-pro:*katilaz]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Related: German inherited the word through the full Germanic chain; Proto-Slavic
+    borrowed it via Gothic. Not connected in v1: Gothic (got) is not loaded, so the
+    Polish path ends at a no_file stub for got:katil. Expected to connect if Gothic is
+    added and its entry links on to gem-pro:*katilaz.
+
+# 15 --------------------------------------------------------------------------
+- id: konig-ksiadz
+  kind: pair
+  relation: related
+  a: de:König
+  b: pl:ksiądz
+  common_ancestor: gem-pro:*kuningaz
+  expected_v1: not_connected
+  path_a:
+    - [de:König, inh, gmh:künec]
+    - [gmh:künec, inh, goh:kuning]
+    - [goh:kuning, inh, gmw-pro:*kuning]
+    - [gmw-pro:*kuning, inh, gem-pro:*kuningaz]
+  path_b:
+    - [pl:ksiądz, inh, zlw-opl:ksiądz]
+    # v1 stops here: zlw-opl:ksiądz = *kъnędzь + dominus (morphology template,
+    # COMPOSED_OF, not loaded). The truth continues via the stem:
+    # - [zlw-opl:ksiądz, inh, sla-pro:*kъnędzь]
+    # - [sla-pro:*kъnędzь, der, gem-pro:*kuningaz]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Related: German inherited the word through the full Germanic chain; Proto-Slavic
+    *kъnędzь was taken from Germanic *kuningaz. Not connected in v1: Old Polish
+    ksiądz is formed from *kъnędzь + dominus, a morphology step (COMPOSED_OF, not
+    loaded), so the Polish path ends at the entry zlw-opl:ksiądz. Also a big
+    meaning change (king vs priest).
+
+# 16 --------------------------------------------------------------------------
+- id: garage-garaz
+  kind: pair
+  relation: related
+  a: de:Garage
+  b: pl:garaż
+  common_ancestor: fr:garage
+  expected_v1: connected
+  path_a:
+    - [de:Garage, bor, fr:garage]
+  path_b:
+    - [pl:garaż, bor, fr:garage]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: French loan in both languages, both Polish and German loan from French.
+
+# 17 --------------------------------------------------------------------------
+- id: buro-biuro
+  kind: pair
+  relation: related
+  a: de:Büro
+  b: pl:biuro
+  common_ancestor: fr:bureau
+  expected_v1: connected
+  path_a:
+    - [de:Büro, bor, fr:bureau]
+  path_b:
+    - [pl:biuro, bor, fr:bureau]
+  checked: en.wiktionary.org, 2026-11-23
+  notes: French loan in both languages, both Polish and German loan from French.
+
+# 18 --------------------------------------------------------------------------
+- id: sosse-sos
+  kind: pair
+  relation: related
+  a: de:Soße
+  b: pl:sos
+  common_ancestor: fr:sauce
+  expected_v1: connected
+  path_a:
+    - [de:Soße, bor, fr:sauce]
+  path_b:
+    - [pl:sos, bor, fr:sauce]
+  beyond:
+    - [fr:sauce, inh, fro:sauce]
+    - [fro:sauce, inh, la:salsa]  # check long chain
+  checked: en.wiktionary.org, 2026-11-23
+  notes: >
+    Shared French loan; beyond tests a French → Old French → Latin chain,
+    all in loaded files.
+
+# 19 --------------------------------------------------------------------------
+- id: weltanschauung-swiatopoglad
+  kind: pair
+  relation: related
+  a: de:Weltanschauung
+  b: pl:światopogląd
+  common_ancestor: de:Weltanschauung
+  expected_v1: connected
+  path_a: []
+  path_b:
+    - [pl:światopogląd, calque, de:Weltanschauung]   # {{ety}} keyword :calque
+  checked: en.wiktionary.org (wikitext), 2026-11-23
+  notes: >
+    Calque: Polish translated the German compound piece by piece (świat + -o- + pogląd
+    = Welt + Anschauung). One {{ety}} template holds both: the :af part is dropped
+    (RESERVED_MORPH), the :calque part gives the link. Tests that a calque link
+    survives next to a morphology analysis. German word is the meeting point (path_a empty).
+
+# 20 --------------------------------------------------------------------------
+- id: devise-cycle
+  kind: cycle
+  words: [de:Devise, fr:devise]
+  links:
+    - [de:Devise, bor, fr:devise]
+    - [fr:devise, calque, de:Devise]     # template "semantic loan"
+  expected_v1: >
+    both links present; the cycle is kept (ADR 0003) and reported as a warning
+    by shapes/warnings/no_cycles.ttl
+  checked: en.wiktionary.org (wikitext), <date>
+  notes: >
+    The only calque type in the sample: a semantic loan (French devise took a meaning
+    from German), not a compound. Also the test case for the cycle warning.
