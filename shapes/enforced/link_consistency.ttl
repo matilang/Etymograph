@@ -1,0 +1,81 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix ety:  <https://matilang.github.io/Etymograph/ns/ety#> .
+@prefix etys: <https://matilang.github.io/Etymograph/ns/shapes#> .
+
+# Consistency of links: the two RDF forms of a link (ADR 0005), and the link's
+# resolution against its target word's status (data contract section 6).
+
+# ---------------------------------------------------------------- direct triples
+
+# Every ety:Link node has both direct triples: ety:derivedFrom and the one of its type.
+etys:LinkHasDirectTriplesShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Link ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "link node has no matching direct triple {?missing} between its source and target" ;
+        sh:prefixes etys: ;
+        sh:select """
+            SELECT $this ?missing WHERE {
+              {
+                $this ety:source ?s ; ety:target ?t .
+                BIND (ety:derivedFrom AS ?missing)
+                FILTER NOT EXISTS { ?s ety:derivedFrom ?t }
+              }
+              UNION
+              {
+                $this ety:source ?s ; ety:target ?t ; ety:linkType ?type .
+                BIND (IRI(CONCAT(STR(ety:), ?type)) AS ?missing)
+                FILTER NOT EXISTS { ?s ?missing ?t }
+              }
+            }
+        """ ;
+    ] .
+
+# Every direct triple has an ety:Link node behind it (with the same type, for
+# ety:inh / bor / der / calque).
+etys:DirectTripleHasLinkShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf ety:derivedFrom, ety:inh, ety:bor, ety:der, ety:calque ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "direct triple {?p} to {?t} has no ety:Link node describing it" ;
+        sh:prefixes etys: ;
+        sh:select """
+            SELECT $this ?p ?t WHERE {
+              $this ?p ?t .
+              FILTER (?p IN (ety:derivedFrom, ety:inh, ety:bor, ety:der, ety:calque))
+              FILTER NOT EXISTS {
+                ?link a ety:Link ;
+                      ety:source $this ;
+                      ety:target ?t ;
+                      ety:linkType ?type .
+                FILTER (?p = ety:derivedFrom || ?p = IRI(CONCAT(STR(ety:), ?type)))
+              }
+            }
+        """ ;
+    ] .
+
+# ---------------------------------------------------------------- resolution
+
+# resolution agrees with the status of the target word:
+# resolved / resolved_by_id -> entry, stub -> stub, ambiguous -> ambiguous.
+etys:LinkResolutionShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Link ;
+    sh:message "resolution does not match the status of the target word (contract section 6)" ;
+    # The alternatives exclude each other, so sh:or means "exactly one" here.
+    # (GraphDB silently ignores sh:xone.)
+    sh:or (
+        [ sh:property [ sh:path ety:resolution ; sh:in ( "resolved" "resolved_by_id" ) ] ,
+                      [ sh:path ety:target ; sh:node etys:EntryWord ] ]
+        [ sh:property [ sh:path ety:resolution ; sh:hasValue "stub" ] ,
+                      [ sh:path ety:target ; sh:node etys:StubWord ] ]
+        [ sh:property [ sh:path ety:resolution ; sh:hasValue "ambiguous" ] ,
+                      [ sh:path ety:target ; sh:node etys:AmbiguousWord ] ]
+    ) .
+
+# Helper shapes without a target: used only through sh:node above.
+etys:EntryWord     a sh:NodeShape ; sh:property [ sh:path ety:status ; sh:hasValue "entry" ] .
+etys:StubWord      a sh:NodeShape ; sh:property [ sh:path ety:status ; sh:hasValue "stub" ] .
+etys:AmbiguousWord a sh:NodeShape ; sh:property [ sh:path ety:status ; sh:hasValue "ambiguous" ] .

@@ -38,7 +38,9 @@ etys:WordStatusShape
     a sh:NodeShape ;
     sh:targetClass ety:Word ;
     sh:message "status, stubReason and etymNo do not fit together (contract section 5)" ;
-    sh:xone (
+    # The alternatives exclude each other, so sh:or means "exactly one" here.
+    # (GraphDB silently ignores sh:xone.)
+    sh:or (
         [ sh:property [ sh:path ety:status ; sh:hasValue "entry" ] ,
                       [ sh:path ety:stubReason ; sh:maxCount 0 ] ]
         [ sh:property [ sh:path ety:status ; sh:hasValue "stub" ] ,
@@ -106,7 +108,9 @@ etys:LinkKeywordShape
     a sh:NodeShape ;
     sh:targetClass ety:Link ;
     sh:message "keyword must be absent for syntax 'classic' and present for syntax 'ety'" ;
-    sh:xone (
+    # The alternatives exclude each other, so sh:or means "exactly one" here.
+    # (GraphDB silently ignores sh:xone.)
+    sh:or (
         [ sh:property [ sh:path ety:syntax ; sh:hasValue "classic" ] ,
                       [ sh:path ety:keyword ; sh:maxCount 0 ] ]
         [ sh:property [ sh:path ety:syntax ; sh:hasValue "ety" ] ,

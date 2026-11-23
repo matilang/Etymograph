@@ -1,0 +1,132 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ety:  <https://matilang.github.io/Etymograph/ns/ety#> .
+@prefix etys: <https://matilang.github.io/Etymograph/ns/shapes#> .
+
+# Shapes for the languages graph (data contract sections 2-4, 7, 8; ADR 0002).
+
+# ---------------------------------------------------------------- Language
+
+etys:LanguageShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Language ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^https://matilang\\.github\\.io/Etymograph/id/lang/" ;
+    sh:property
+        [ sh:path ety:code ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:string ; sh:pattern "^[a-z0-9-]+$" ] ,   # ADR 0005: code character set
+        [ sh:path ety:name ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:string ; sh:minLength 1 ] ,
+        [ sh:path ety:wiktType ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:in ( "regular" "reconstructed" "appendix-constructed" "etymology-only" ) ] ,
+        [ sh:path ety:category ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:in ( "modern" "historical" "proto" "etymology-only" ) ] ,
+        [ sh:path ety:family ; sh:maxCount 1 ; sh:class ety:Family ] ,
+        [ sh:path ety:variantOf ; sh:maxCount 1 ; sh:class ety:Language ] ,
+        [ sh:path ety:hasAncestor ; sh:class ety:Language ] ,
+        [ sh:path ety:runId ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:pattern "^r_[0-9a-f]{12}$" ] .
+
+# The IRI is built from the code: etyd:lang/{code}.
+etys:LanguageIriShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Language ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "language IRI does not end in its code {?code}" ;
+        sh:prefixes etys: ;
+        sh:select """
+            SELECT $this ?code WHERE {
+              $this ety:code ?code .
+              FILTER (STR($this) != CONCAT("https://matilang.github.io/Etymograph/id/lang/", ?code))
+            }
+        """ ;
+    ] .
+
+# wiktType, category, variantOf and family fit together (ADR 0002, contract section 2):
+# - etymology-only: category etymology-only, exactly one variantOf, no family;
+# - reconstructed: category proto, no variantOf;
+# - regular / appendix-constructed: category modern or historical, no variantOf.
+etys:LanguageTypeShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Language ;
+    sh:message "wiktType, category, variantOf and family do not fit together (ADR 0002)" ;
+    # The alternatives exclude each other, so sh:or means "exactly one" here.
+    # (GraphDB silently ignores sh:xone.)
+    sh:or (
+        [ sh:property [ sh:path ety:wiktType ; sh:hasValue "etymology-only" ] ,
+                      [ sh:path ety:category ; sh:hasValue "etymology-only" ] ,
+                      [ sh:path ety:variantOf ; sh:minCount 1 ] ,
+                      [ sh:path ety:family ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path ety:wiktType ; sh:hasValue "reconstructed" ] ,
+                      [ sh:path ety:category ; sh:hasValue "proto" ] ,
+                      [ sh:path ety:variantOf ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path ety:wiktType ; sh:in ( "regular" "appendix-constructed" ) ] ,
+                      [ sh:path ety:category ; sh:in ( "modern" "historical" ) ] ,
+                      [ sh:path ety:variantOf ; sh:maxCount 0 ] ]
+    ) .
+
+# Language ancestry has no cycles: a language is never its own ancestor.
+etys:AncestryAcyclicShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf ety:hasAncestor ;   # re-checked whenever a hasAncestor triple is added
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "language is its own ancestor through ety:hasAncestor" ;
+        sh:prefixes etys: ;
+        sh:select """
+            SELECT $this WHERE { $this ety:hasAncestor+ $this . }
+        """ ;
+    ] .
+
+# Words always live in a full language, never an etymology-only one (ADR 0002).
+etys:WordInFullLanguageShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Word ;
+    sh:property [
+        sh:path ety:inLanguage ;
+        sh:node etys:FullLanguage ;
+        sh:message "word is filed under an etymology-only language; words belong to the full language" ;
+    ] .
+
+etys:FullLanguage
+    a sh:NodeShape ;
+    sh:property [ sh:path ety:variantOf ; sh:maxCount 0 ] .
+
+# ---------------------------------------------------------------- Family
+
+etys:FamilyShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Family ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^https://matilang\\.github\\.io/Etymograph/id/family/[a-z0-9-]+$" ;
+    sh:property
+        [ sh:path ety:parentFamily ; sh:maxCount 1 ; sh:class ety:Family ] ,
+        [ sh:path ety:protoLanguage ; sh:maxCount 1 ; sh:class ety:Language ] .
+
+# ---------------------------------------------------------------- ImportRun
+
+etys:ImportRunShape
+    a sh:NodeShape ;
+    sh:targetClass ety:ImportRun ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^https://matilang\\.github\\.io/Etymograph/id/run/r_[0-9a-f]{12}$" .
+
+# Every runId value names an ImportRun that exists in the data.
+etys:RunIdKnownShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf ety:runId ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "runId {?r} has no ety:ImportRun resource" ;
+        sh:prefixes etys: ;
+        sh:select """
+            SELECT $this ?r WHERE {
+              $this ety:runId ?r .
+              FILTER NOT EXISTS {
+                ?run a ety:ImportRun .
+                FILTER (STR(?run) = CONCAT("https://matilang.github.io/Etymograph/id/run/", ?r))
+              }
+            }
+        """ ;
+    ] .
