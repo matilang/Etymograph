@@ -1,0 +1,20 @@
+# GraphDB for Role 2 (SHACL shapes and SPARQL rules, ADR 0005).
+# Start:  docker compose up -d       (from this folder)
+# Stop:   docker compose down        (data stays in the volume; add -v to wipe it)
+# Workbench: http://localhost:7200
+name: etymograph-shapes
+
+services:
+  graphdb:
+    image: ontotext/graphdb:11.5.1
+    container_name: etymograph-graphdb
+    environment:
+      GDB_JAVA_OPTS: "-Xmx${GRAPHDB_HEAP:-2g}"
+    ports:
+      - "${GRAPHDB_PORT:-7200}:7200"
+    volumes:
+      # Repositories and settings survive restarts.
+      - graphdb-home:/opt/graphdb/home
+
+volumes:
+  graphdb-home:

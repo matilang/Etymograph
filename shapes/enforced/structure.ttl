@@ -1,0 +1,114 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ety:  <https://matilang.github.io/Etymograph/ns/ety#> .
+@prefix etys: <https://matilang.github.io/Etymograph/ns/shapes#> .
+
+# Structural shapes for words and links, data contract v1 sections 5, 6 and 8.
+
+# ---------------------------------------------------------------- Word
+
+etys:WordShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Word ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^https://matilang\\.github\\.io/Etymograph/id/word/w_[0-9a-f]{16}$" ;
+    sh:property
+        [ sh:path ety:form ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:string ; sh:minLength 1 ] ,
+        [ sh:path ety:key ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:string ; sh:minLength 1 ] ,
+        [ sh:path ety:etymNo ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:integer ; sh:minInclusive 0 ] ,
+        [ sh:path ety:inLanguage ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:class ety:Language ] ,
+        [ sh:path ety:status ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:in ( "entry" "stub" "ambiguous" ) ] ,
+        [ sh:path ety:stubReason ; sh:maxCount 1 ;
+          sh:in ( "no_entry" "no_file" ) ] ,
+        [ sh:path ety:pos ; sh:datatype xsd:string ] ,
+        [ sh:path ety:etyId ; sh:datatype xsd:string ] ,
+        [ sh:path ety:gloss ; sh:maxCount 1 ; sh:datatype xsd:string ] ,
+        [ sh:path ety:sourceFile ; sh:maxCount 1 ; sh:class ety:Language ] ,
+        [ sh:path ety:runId ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:pattern "^r_[0-9a-f]{12}$" ] .
+
+# Contract section 5: stub_reason is set iff status = stub,
+# and stub / ambiguous page words have etym_no = 0.
+etys:WordStatusShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Word ;
+    sh:message "status, stubReason and etymNo do not fit together (contract section 5)" ;
+    sh:xone (
+        [ sh:property [ sh:path ety:status ; sh:hasValue "entry" ] ,
+                      [ sh:path ety:stubReason ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path ety:status ; sh:hasValue "stub" ] ,
+                      [ sh:path ety:stubReason ; sh:minCount 1 ] ,
+                      [ sh:path ety:etymNo ; sh:hasValue 0 ] ]
+        [ sh:property [ sh:path ety:status ; sh:hasValue "ambiguous" ] ,
+                      [ sh:path ety:stubReason ; sh:maxCount 0 ] ,
+                      [ sh:path ety:etymNo ; sh:hasValue 0 ] ]
+    ) .
+
+# A reconstruction is a word whose form and key start with exactly one "*" (ADR 0001).
+etys:ReconstructionShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Reconstruction ;
+    sh:class ety:Word ;
+    sh:property
+        [ sh:path ety:form ; sh:pattern "^\\*[^*]" ] ,
+        [ sh:path ety:key  ; sh:pattern "^\\*[^*]" ] .
+
+# ---------------------------------------------------------------- Link
+
+etys:LinkShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Link ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^https://matilang\\.github\\.io/Etymograph/id/link/l_[0-9a-f]{16}$" ;
+    sh:property
+        [ sh:path ety:source ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:class ety:Word ;
+          sh:disjoint ety:target ;          # no self-loops (ADR 0003)
+          sh:message "a link needs exactly one source word, different from its target" ] ,
+        [ sh:path ety:target ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:class ety:Word ] ,
+        [ sh:path ety:linkType ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:in ( "inh" "bor" "der" "calque" ) ] ,
+        [ sh:path ety:sourceEntry ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:class ety:Word ] ,
+        [ sh:path ety:template ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:string ; sh:minLength 1 ] ,
+        [ sh:path ety:keyword ; sh:maxCount 1 ; sh:datatype xsd:string ] ,
+        [ sh:path ety:syntax ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:in ( "classic" "ety" ) ] ,
+        [ sh:path ety:targetLangRaw ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:string ] ,
+        [ sh:path ety:targetForm ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:string ] ,
+        [ sh:path ety:targetSenseId ; sh:maxCount 1 ; sh:datatype xsd:string ] ,
+        [ sh:path ety:extraction ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:in ( "template" "chain" ) ] ,
+        [ sh:path ety:hop ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:integer ; sh:minInclusive 0 ] ,
+        [ sh:path ety:confidence ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:maxInclusive 1 ] ,
+        [ sh:path ety:resolution ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:in ( "resolved" "resolved_by_id" "ambiguous" "stub" ) ] ,
+        [ sh:path ety:evidenceCount ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:integer ; sh:minInclusive 1 ] ,
+        [ sh:path ety:hasParallel ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:datatype xsd:boolean ] ,
+        [ sh:path ety:runId ; sh:minCount 1 ; sh:maxCount 1 ;
+          sh:pattern "^r_[0-9a-f]{12}$" ] .
+
+# Contract section 3 of ADR 0003: keyword is null for classic templates.
+etys:LinkKeywordShape
+    a sh:NodeShape ;
+    sh:targetClass ety:Link ;
+    sh:message "keyword must be absent for syntax 'classic' and present for syntax 'ety'" ;
+    sh:xone (
+        [ sh:property [ sh:path ety:syntax ; sh:hasValue "classic" ] ,
+                      [ sh:path ety:keyword ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path ety:syntax ; sh:hasValue "ety" ] ,
+                      [ sh:path ety:keyword ; sh:minCount 1 ] ]
+    ) .
